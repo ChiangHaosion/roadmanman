@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package com.hc.util;
 
 import org.apache.flink.api.common.functions.ReduceFunction;

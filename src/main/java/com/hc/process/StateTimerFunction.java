@@ -8,9 +8,7 @@ import org.apache.flink.util.Collector;
 
 public class StateTimerFunction extends KeyedProcessFunction<Integer, String, String> {
 
-    private MapState<String,String> mapCacheStorage;
     private ValueState<String> valCacheStorage;
-
 
     private int TTL_SEC;
 
@@ -19,30 +17,13 @@ public class StateTimerFunction extends KeyedProcessFunction<Integer, String, St
     }
 
     public void open(Configuration parameters) throws Exception {
-//        MapStateDescriptor<String, String> descriptor = new MapStateDescriptor<>("CacheStorage", String.class,String.class);
-
         ValueStateDescriptor<String> valStateDescriptor = new ValueStateDescriptor<>("valState", String.class);
-
-        StateTtlConfig ttl = StateTtlConfig
-                .newBuilder(Time.seconds(5))
-                .setUpdateType(StateTtlConfig.UpdateType.OnCreateAndWrite)
-                .setStateVisibility(StateTtlConfig.StateVisibility.NeverReturnExpired)
-                .build();
-        //valStateDescriptor.enableTimeToLive(ttl);
-        valStateDescriptor.enableTimeToLive(ttl);
-//        mapCacheStorage = getRuntimeContext().getMapState(descriptor);
-
         valCacheStorage = getRuntimeContext().getState(valStateDescriptor);
     }
 
     @Override
     public void processElement(String bytes, Context context, Collector<String> collector) throws Exception {
         try {
-//
-//            if (mapCacheStorage.get(bytes)!=null){
-//                return;
-//            }
-//            mapCacheStorage.put(bytes,bytes);
             context.timerService().registerProcessingTimeTimer(System.currentTimeMillis() + TTL_SEC *1000);
             if (valCacheStorage.value()==null){
                 valCacheStorage.update(bytes);
