@@ -1,4 +1,4 @@
-package com.interview;
+package com.interview._多线程;
 
 import java.util.concurrent.TimeUnit;
 
@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
  * @Author HaosionChiang
  * @Date 2023/4/25
  **/
-public class Inter_01 {
+public class JoinExample {
 
 
     public static void main(String[] args) throws InterruptedException {

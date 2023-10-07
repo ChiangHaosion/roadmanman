@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Author HaosionChiang
@@ -8,21 +9,50 @@ import java.util.*;
  **/
 public class TestCCC {
 
+    public int climbStairs(int n) {
+        //dp[i]=dp[i-1]+dp[i-2]
+        int[] dp = new int[n + 1];
+        dp[1] = 1;
+        dp[2] = 2;
+        for (int i = 3; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
+    }
+
+    private static AtomicInteger count=new AtomicInteger(0);
+
+    @Test
+    public void test20230822() throws InterruptedException {
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 10; i++) {
+                count.getAndIncrement();
+            }
+        });
+
+      Thread t2=  new Thread(()->{
+            for (int i = 0; i < 10; i++) {
+                count.getAndIncrement();
+            }
+        });
+      t1.start();
+      t2.start();
+      t1.join();
+      t2.join();
+        System.out.println(count);
+
+    }
+
 
     @Test
     public void test(){
-
-        String str="hello";
-
-        System.out.println(str);
-        str=str+"x";
-
-        System.out.println(str);
+        climbStairs(1);
+        System.out.println(Integer.toBinaryString(5));
+        System.out.println(Integer.toBinaryString(5<<2));
     }
     public static void main(String[] args) {
         //lengthOfLongestSubstring("abcabcbb");
         lengthOfLongestSubstringv3("abcabcbb");
-
     }
     public static int lengthOfLongestSubstring(String s) {
         Set<Character> set = new HashSet<>();
