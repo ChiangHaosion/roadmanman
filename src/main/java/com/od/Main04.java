@@ -7,11 +7,6 @@ import java.util.Stack;
 
 /**
  * 字符消消乐
- *
- *
- *
- *
- *
  */
 public class Main04 {
     public static void main(String[] args) {

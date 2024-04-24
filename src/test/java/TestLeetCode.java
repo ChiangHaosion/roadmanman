@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @Author HaosionChiang
  * @Date 2023/4/11
  **/
-public class TestCCC {
+public class TestLeetCode {
 
     public int climbStairs(int n) {
         //dp[i]=dp[i-1]+dp[i-2]
@@ -39,7 +39,7 @@ public class TestCCC {
       t2.start();
       t1.join();
       t2.join();
-        System.out.println(count);
+      System.out.println(count);
 
     }
 
